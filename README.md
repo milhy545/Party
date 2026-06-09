@@ -56,6 +56,21 @@ Logy jsou ukládány do:
 - **Modely se nepřepínají**: Zkontrolujte logy a ujistěte se, že `pi` inicializuje správně.
 - **Max retries reached**: Revizor opakovaně zamítá plán/kód. Zkontrolujte vstupní data.
 
+## CI/CD
+
+Projekt používá **GitHub Actions** pro automatizované testování a releasy:
+
+### Workflows
+- **CI**: Spouští unit a integrační testy při každém `push`/`PR` do `main`.
+- **E2E Tests**: Spouští end-to-end testy při `push` do `main`.
+- **Release**: Automaticky vytvoří release při vytvoření nového tagu (např. `v1.0.0`).
+
+### Branch Protection Rules
+- **`main` branch** je chráněn:
+  - Vyžaduje schválení PR (min. 1 reviewer).
+  - Vyžaduje úspěšné CI testy.
+  - Zakazuje force push.
+
 ## Testování
 
 ### Unit testy
