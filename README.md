@@ -4,20 +4,35 @@ Multi-agent AI tým pro brainstorming, kódování, revize a opravy chyb.
 
 ## Instalace
 
-### Požadavky
-- Python 3.12+
+### Rychlá instalace (doporučeno)
+Použij instalační skript, který automaticky nainstaluje všechny závislosti:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/milhy545/Party/main/install.sh | bash
+```
+
+Po instalaci restartuj terminál nebo spusť:
+```bash
+source ~/.bashrc
+```
+
+### Manuální instalace
+#### Požadavky
+- Python 3+
+- `git`
 - `tmux`
 - `alacritty`
 - `pi` (interaktivní AI shell)
-- `uv` (pro správu Python prostředí)
 
-### Kroky
+#### Kroky
 ```bash
-git clone <repo>
+git clone https://github.com/milhy545/Party.git
 cd Party
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt  # Pokud existuje, jinak nainstaluj závislosti ručně
+pip install --break-system-packages -r requirements-test.txt  # Pro testování
+# Nebo ručně:
+pip install --break-system-packages toml google.antigravity
 ```
 
 ## Použití
