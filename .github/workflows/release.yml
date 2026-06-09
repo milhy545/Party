@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install dependencies
+      run: pip install -r requirements-test.txt
+
+    - name: Run tests
+      run: pytest
+
+    - name: Create release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          agy_orchestrator.py
+          config.toml
+          start_party.sh
+          README.md
+        generate_release_notes: true

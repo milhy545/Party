@@ -1,0 +1,23 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.12-slim
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        apt-get update && apt-get install -y tmux
+        pip install -r requirements-test.txt
+
+    - name: Run E2E tests
+      run: pytest tests/e2e/
