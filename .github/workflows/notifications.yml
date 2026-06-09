@@ -1,0 +1,32 @@
+name: Notifications
+
+on:
+  workflow_run:
+    workflows: ["CI", "E2E Tests", "Release"]
+    types: [completed]
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Slack on Failure
+        if: github.event.workflow_run.conclusion == 'failure'
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: danger
+          SLACK_TITLE: "❌ Workflow Failed"
+          SLACK_MESSAGE: "Workflow *${{ github.event.workflow_run.name }}* selhal v repozitáři *${{ github.repository }}*."
+          SLACK_FOOTER: "<https://github.com/${{ github.repository }}/actions|Zobrazit detaily>"
+
+      - name: Notify Slack on Success (Release)
+        if: github.event_name == 'release' && github.event.action == 'published'
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: good
+          SLACK_TITLE: "✅ Nový Release"
+          SLACK_MESSAGE: "Byl vydán nový release *${{ github.event.release.tag_name }}* v repozitáři *${{ github.repository }}*."
+          SLACK_FOOTER: "<${{ github.event.release.html_url }}|Zobrazit release>"
