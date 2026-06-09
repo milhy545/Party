@@ -1,0 +1,26 @@
+# config.toml – Konfigurace Agy Orchestrator Squad
+
+[models]
+# Modely pro jednotlivé členy týmu
+support_mind = "opencode/mimo-v2.5-free"         # Brainstorming
+code_revizor = "mistral/mistral-large-latest"    # Revize kódu/plánu
+coder = "mistral/codestral-latest"               # Kódování
+test_fix = "opencode/deepseek-v4-flash-free"     # Opravy chyb
+
+[workflow]
+# Nastavení workflow
+max_retries = 5          # Max. počet opakování pro schvalovací smyčky
+timeout_seconds = 30     # Timeout pro jednotlivé kroky (v sekundách)
+skip_steps = []          # Kroky k přeskočení (např. ["final_review"])
+
+[logging]
+# Logování
+log_file = "/tmp/agy_orchestrator_{session}.log"  # Cesta k log souboru
+log_level = "INFO"                                 # Úroveň logování (DEBUG/INFO/WARNING/ERROR)
+
+[dispatch_rules]
+# Klíčová slova pro automatické směrování úkolů
+brainstorm = ["brainstorm", "idea", "plán"]
+review = ["review", "revize", "kontrola"]
+code = ["code", "write", "kód"]
+fix = ["fix", "bug", "error", "oprava"]

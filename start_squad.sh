@@ -1,0 +1,1 @@
+/home/milhy777/Develop/Party/start_party.sh
